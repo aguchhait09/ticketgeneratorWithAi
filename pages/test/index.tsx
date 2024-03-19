@@ -71,12 +71,6 @@ const Chat = () => {
         model: "gpt-3.5-turbo-0125",
         messages: userInput,
       },
-      // {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${process.env.AUTHORIZATION_KEY}`,
-      //   },
-      // }
     );
     console.log("OpenAI API Response:", response.data);
     return response;

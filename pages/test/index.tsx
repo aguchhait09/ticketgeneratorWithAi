@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import ChatFormatComponent from "@/components/ChatFormatComponent";
 import { OpenAitInterface } from "@/typescript/interface/response.interface";
+import { axiosInstance } from "@/api/axiosInstance";
 // import Markdown from "react-markdown";
 // import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 // import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -64,22 +65,25 @@ const Chat = () => {
   };
 
   const openAiApi = async (userInput: string) => {
-    const response = await axios.post(
+    const response = await axiosInstance.post(
       "https://api.openai.com/v1/chat/completions",
       {
         model: "gpt-3.5-turbo-0125",
         messages: userInput,
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer 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",
-        },
-      }
+      // {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${process.env.AUTHORIZATION_KEY}`,
+      //   },
+      // }
     );
     console.log("OpenAI API Response:", response.data);
     return response;
   };
+
+  console.log('env', process.env.AUTHORIZATION_KEY);
+  
 
   const copyCodeSnippet = (codeSnippet: any) => {
     navigator.clipboard.writeText(codeSnippet);
